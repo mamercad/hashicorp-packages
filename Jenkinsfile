@@ -17,9 +17,8 @@ pipeline {
                   gpg --verify consul_1.7.1_SHA256SUMS.sig consul_1.7.1_SHA256SUMS
                   curl -sLO https://releases.hashicorp.com/consul/1.7.1/consul_1.7.1_linux_amd64.zip
                   cat consul_1.7.1_SHA256SUMS
-                  grep consul_1.7.1_linux_amd64.zip consul_1.7.1_SHA256SUMS | tee foo
-                  cat foo
-                  sha256sum -c consul_1.7.1_SHA256SUMS
+                  grep consul_1.7.1_linux_amd64.zip consul_1.7.1_SHA256SUMS | tee consul_1.7.1_SHA256SUMS.tmp
+                  sha256sum -c consul_1.7.1_SHA256SUMS.tmp
                   unzip consul_1.7.1_linux_amd64.zip
                   fpm -s dir -t rpm ./consul:/usr/local/bin/consul
                 ''')
