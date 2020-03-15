@@ -4,6 +4,7 @@ pipeline {
         stage('build') {
             steps {
                 sh('''
+                  yum -y install ruby ruby-devel
                   ruby --version
                   #gem install --no-document fpm
                   #fpm --version
