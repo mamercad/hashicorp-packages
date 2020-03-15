@@ -15,7 +15,8 @@ pipeline {
                   curl -sLO https://releases.hashicorp.com/consul/1.7.1/consul_1.7.1_SHA256SUMS.sig
                   curl -sLO https://releases.hashicorp.com/consul/1.7.1/consul_1.7.1_SHA256SUMS 
                   gpg --verify consul_1.7.1_SHA256SUMS.sig consul_1.7.1_SHA256SUMS
-                  # curl -sLO https://releases.hashicorp.com/consul/1.7.1/consul_1.7.1_linux_amd64.zip
+                  curl -sLO https://releases.hashicorp.com/consul/1.7.1/consul_1.7.1_linux_amd64.zip
+                  shasum -a 256 -c vault_0.5.2_SHA256SUMS
                 ''')
             }
         }
