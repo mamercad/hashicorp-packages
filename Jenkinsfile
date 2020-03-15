@@ -20,7 +20,7 @@ pipeline {
                   cat consul_1.7.1_SHA256SUMS
                   grep consul_1.7.1_linux_amd64.zip consul_1.7.1_SHA256SUMS | tee consul_1.7.1_SHA256SUMS.tmp
                   sha256sum -c consul_1.7.1_SHA256SUMS.tmp
-                  unzip consul_1.7.1_linux_amd64.zip
+                  unzip -f consul_1.7.1_linux_amd64.zip
                   fpm -s dir -t rpm -n consul --version 1.7.1 --iteration ${JOB_NUMBER} ./consul:/usr/local/bin/
                 ''')
             }
