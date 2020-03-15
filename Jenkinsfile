@@ -3,7 +3,11 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'ruby --version'
+                sh('''
+                  ruby --version
+                  gem install --no-document fpm
+                  fpm --version
+                ''')
             }
         }
     }
