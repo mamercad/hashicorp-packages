@@ -4,6 +4,7 @@ pipeline {
         stage('build') {
             steps {
                 sh('''
+                  PATH=/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/sbin:/usr/local/bin
                   sudo yum -y install ruby ruby-devel
                   ruby --version
                   sudo gem install --no-document fpm
