@@ -5,6 +5,7 @@ pipeline {
             steps {
                 sh('''
                   PATH=/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/sbin:/usr/local/bin
+                  sudo yum -y install rpm-build
                   sudo yum -y install ruby ruby-devel
                   ruby --version
                   sudo gem install --no-document fpm
@@ -20,7 +21,7 @@ pipeline {
                   grep consul_1.7.1_linux_amd64.zip consul_1.7.1_SHA256SUMS | tee consul_1.7.1_SHA256SUMS.tmp
                   sha256sum -c consul_1.7.1_SHA256SUMS.tmp
                   unzip consul_1.7.1_linux_amd64.zip
-                  fpm -s dir -t rpm ./consul:/usr/local/bin/consul
+                  fpm -s dir -t rpm ./consul:/usr/local/bin/
                 ''')
             }
         }
