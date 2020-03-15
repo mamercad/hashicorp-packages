@@ -25,7 +25,7 @@ pipeline {
           cat consul_${params.version}_SHA256SUMS
           grep consul_${params.version}_linux_amd64.zip consul_${params.version}_SHA256SUMS | tee consul_${params.version}_SHA256SUMS.tmp
           sha256sum -c consul_${params.version}_SHA256SUMS.tmp
-          unzip -f consul_${params.version}_linux_amd64.zip
+          unzip -o consul_${params.version}_linux_amd64.zip
           fpm --input-type dir --output-type rpm --name consul --version ${params.version} --iteration ${BUILD_NUMBER} ./consul=/usr/local/bin/consul
         """)
       }
