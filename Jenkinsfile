@@ -7,6 +7,7 @@ pipeline {
                   sudo yum -y install ruby ruby-devel
                   ruby --version
                   sudo gem install --no-document fpm
+                  which -a fpm
                   fpm --version
                   sudo yum -y install gnupg
                   gpg --recv-keys 51852D87348FFC4C # hashicorp
