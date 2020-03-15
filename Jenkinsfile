@@ -18,6 +18,8 @@ pipeline {
                   curl -sLO https://releases.hashicorp.com/consul/1.7.1/consul_1.7.1_linux_amd64.zip
                   grep consul_1.7.1_linux_amd64.zip consul_1.7.1_SHA256SUMS | tee consul_1.7.1_SHA256SUMS
                   sha256sum -c consul_1.7.1_SHA256SUMS
+                  unzip consul_1.7.1_linux_amd64.zip
+                  fpm -s dir -t rpm ./consul:/usr/local/bin/consul
                 ''')
             }
         }
