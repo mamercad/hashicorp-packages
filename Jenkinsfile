@@ -20,7 +20,7 @@ pipeline {
   parameters {
     string(name: 'consul_version', defaultValue: '1.7.1', description: 'Consul version (https://www.consul.io/downloads.html)')
     string(name: 'vault_version', defaultValue: '1.3.4', description: 'Vault version (https://www.vaultproject.io/downloads/)')
-    string(name: 'nomad_version', defaultValue: '1.3.4', description: 'Nomad version (https://nomadproject.io/downloads/)')
+    string(name: 'nomad_version', defaultValue: '0.10.4', description: 'Nomad version (https://nomadproject.io/downloads/)')
   }
   stages {
     stage('Build Consul') {
