@@ -1,5 +1,19 @@
 pipeline {
   agent any
+  triggers {
+    GenericTrigger(
+      genericVariables: [
+        [key: 'ref', value: '$.ref']
+      ],
+      causeString: 'Triggered on $ref',
+      token: 'hunter2',
+      printContributedVariables: true,
+      printPostContent: true,
+      silentResponse: false,
+      regexpFilterText: '$ref',
+      regexpFilterExpression: 'refs/heads/' + BRANCH_NAME
+    )
+  }
   environment {
     PATH = '/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/sbin:/usr/local/bin'
   }
