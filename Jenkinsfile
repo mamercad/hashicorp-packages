@@ -20,6 +20,7 @@ pipeline {
   parameters {
     string(name: 'consul_version', defaultValue: '1.7.1', description: 'Consul version (https://www.consul.io/downloads.html)')
     string(name: 'vault_version', defaultValue: '1.3.4', description: 'Vault version (https://www.vaultproject.io/downloads/)')
+    string(name: 'nomad_version', defaultValue: '1.3.4', description: 'Nomad version (https://nomadproject.io/downloads/)')
   }
   stages {
     stage('Build Consul') {
@@ -65,6 +66,29 @@ pipeline {
           sha256sum -c vault_${params.vault_version}_SHA256SUMS.tmp
           unzip -o vault_${params.vault_version}_linux_amd64.zip
           fpm --input-type dir --output-type rpm --name vault --version ${params.vault_version} --iteration ${BUILD_NUMBER} ./vault=/usr/local/bin/vault
+        """)
+      }
+    }
+    stage('Build Nomad') {
+      steps {
+        sh("""
+          sudo yum -y install rpm-build
+          sudo yum -y install ruby ruby-devel
+          ruby --version
+          sudo gem install --no-document fpm
+          which -a fpm
+          fpm --version
+          sudo yum -y install gnupg
+          gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 51852D87348FFC4C # hashicorp
+          curl -sLO https://releases.hashicorp.com/nomad/${params.nomad_version}/nomad_${params.nomad_version}_SHA256SUMS.sig
+          curl -sLO https://releases.hashicorp.com/nomad/${params.nomad_version}/nomad_${params.nomad_version}_SHA256SUMS 
+          gpg --verify nomad_${params.nomad_version}_SHA256SUMS.sig nomad_${params.nomad_version}_SHA256SUMS
+          curl -sLO https://releases.hashicorp.com/nomad/${params.nomad_version}/nomad_${params.nomad_version}_linux_amd64.zip
+          cat nomad_${params.nomad_version}_SHA256SUMS
+          grep nomad_${params.nomad_version}_linux_amd64.zip nomad_${params.nomad_version}_SHA256SUMS | tee nomad_${params.nomad_version}_SHA256SUMS.tmp
+          sha256sum -c nomad_${params.nomad_version}_SHA256SUMS.tmp
+          unzip -o nomad_${params.nomad_version}_linux_amd64.zip
+          fpm --input-type dir --output-type rpm --name nomad --version ${params.nomad_version} --iteration ${BUILD_NUMBER} ./nomad=/usr/local/bin/nomad
         """)
       }
     }
