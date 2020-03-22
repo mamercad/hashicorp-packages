@@ -43,7 +43,7 @@ pipeline {
           grep consul_${params.consul_version}_linux_amd64.zip consul_${params.consul_version}_SHA256SUMS | tee consul_${params.consul_version}_SHA256SUMS.tmp
           sha256sum -c consul_${params.consul_version}_SHA256SUMS.tmp
           unzip -o consul_${params.consul_version}_linux_amd64.zip
-          fpm --input-type dir --output-type rpm --name consul --version ${params.consul_version} --iteration ${BUILD_NUMBER} ./consul=/usr/local/bin/consul ./systemd/consul.service:/etc/systemd/system/consul.service
+          fpm --input-type dir --output-type rpm --name consul --version ${params.consul_version} --iteration ${BUILD_NUMBER} ./consul=/usr/local/bin/consul ./systemd/consul.service=/etc/systemd/system/consul.service
         """)
       }
     }
