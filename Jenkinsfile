@@ -66,7 +66,7 @@ pipeline {
           grep vault_${params.vault_version}_linux_amd64.zip vault_${params.vault_version}_SHA256SUMS | tee vault_${params.vault_version}_SHA256SUMS.tmp
           sha256sum -c vault_${params.vault_version}_SHA256SUMS.tmp
           unzip -o vault_${params.vault_version}_linux_amd64.zip
-          fpm --input-type dir --output-type rpm --name vault --version ${params.vault_version} --iteration ${BUILD_NUMBER} ./vault=/usr/local/bin/vault ./systemd/vault.service=/etc/systemd/system/vault.service
+          fpm --input-type dir --output-type rpm --name vault --version ${params.vault_version} --iteration ${BUILD_NUMBER} ./vault=/usr/local/bin/vault
         """)
       }
     }
@@ -89,7 +89,7 @@ pipeline {
           grep nomad_${params.nomad_version}_linux_amd64.zip nomad_${params.nomad_version}_SHA256SUMS | tee nomad_${params.nomad_version}_SHA256SUMS.tmp
           sha256sum -c nomad_${params.nomad_version}_SHA256SUMS.tmp
           unzip -o nomad_${params.nomad_version}_linux_amd64.zip
-          fpm --input-type dir --output-type rpm --name nomad --version ${params.nomad_version} --iteration ${BUILD_NUMBER} ./nomad=/usr/local/bin/nomad
+          fpm --input-type dir --output-type rpm --name nomad --version ${params.nomad_version} --iteration ${BUILD_NUMBER} ./nomad=/usr/local/bin/nomad ./systemd/nomad.service=/etc/systemd/system/nomad.service
         """)
       }
     }
